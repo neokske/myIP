@@ -24,6 +24,9 @@ Object.keys(ifaces).forEach(function(ifname) {
   });
 });
 
-copyPaste.copy(iets[0].address, () => {
-  console.log("Copied wifi!");
-});
+copyPaste.copy(
+  iets.filter(connection => connection.ifname === "en0")[0].address,
+  () => {
+    console.log("Copied wifi!");
+  }
+);
