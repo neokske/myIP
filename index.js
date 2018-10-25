@@ -5,10 +5,11 @@ const copyPaste = require("copy-paste");
 const commander = require("commander");
 const inquirer = require("inquirer");
 const _ = require("lodash");
+const packageInfo = require("./package.json");
 
 commander
-  .version("1.1.0")
-  .option("-n, --nocopy", "No questions")
+  .version(packageInfo.version)
+  .option("-n, --nocopy", "Get a list without having to choose for copy")
   .parse(process.argv);
 
 const connections = [];
