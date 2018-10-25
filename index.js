@@ -2,8 +2,16 @@
 const os = require("os");
 const ifaces = os.networkInterfaces();
 const copyPaste = require("copy-paste");
+const commander = require("commander");
+const inquirer = require("inquirer");
+const _ = require("lodash");
 
-const iets = [];
+commander
+  .version("1.1.0")
+  .option("-n, --nocopy", "No questions")
+  .parse(process.argv);
+
+const connections = [];
 
 Object.keys(ifaces).forEach(function(ifname) {
   let alias = 0;
@@ -19,14 +27,29 @@ Object.keys(ifaces).forEach(function(ifname) {
       console.log(ifname, iface.address);
     }
 
-    iets.push({ ifname: ifname, address: iface.address });
+    connections.push({ ifname: ifname, address: iface.address });
     ++alias;
   });
 });
 
-copyPaste.copy(
-  iets.filter(connection => connection.ifname === "en0")[0].address,
-  () => {
-    console.log("Copied wifi!");
-  }
-);
+if (!commander.nocopy) {
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        name: "IP",
+        message: "Which ip do you want to copy?",
+        choices: [
+          ...connections.map(connection =>
+            _.join([connection.ifname, connection.address], " - ")
+          )
+        ]
+      }
+    ])
+    .then(answer => {
+      const chosenIP = answer.IP.split(" - ")[1];
+      copyPaste.copy(chosenIP, () => {
+        console.log("Copied IP address!!");
+      });
+    });
+}
