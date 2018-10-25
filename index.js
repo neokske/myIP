@@ -38,7 +38,7 @@ if (!commander.nocopy) {
       {
         type: "list",
         name: "IP",
-        message: "Which ip do you want to copy?",
+        message: "Which ip do you want to copy to your clipboard?",
         choices: [
           ...connections.map(connection =>
             _.join([connection.ifname, connection.address], " - ")
