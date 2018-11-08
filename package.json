@@ -4,8 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "bin": {
-    "myIP": "./index.js",
-    "getPWD": "./pwd.js"
+    "myIP": "./commands/myIP.js",
+    "getPWD": "./commands/getPWD.js"
   },
   "dependencies": {
     "commander": "^2.19.0",

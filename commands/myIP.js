@@ -1,37 +1,17 @@
 #! /usr/bin/env node
-const os = require("os");
-const ifaces = os.networkInterfaces();
 const copyPaste = require("copy-paste");
 const commander = require("commander");
 const inquirer = require("inquirer");
 const _ = require("lodash");
-const packageInfo = require("./package.json");
+const packageInfo = require("../package.json");
+const getConnections = require("../functions/getIPs");
 
 commander
   .version(packageInfo.version)
   .option("-n, --nocopy", "Get a list without having to choose for copy")
   .parse(process.argv);
 
-const connections = [];
-
-Object.keys(ifaces).forEach(function(ifname) {
-  let alias = 0;
-
-  ifaces[ifname].forEach(function(iface) {
-    if ("IPv4" !== iface.family || iface.internal !== false) {
-      return;
-    }
-
-    if (alias >= 1) {
-      console.log(ifname + ":" + alias, iface.address);
-    } else {
-      console.log(ifname, iface.address);
-    }
-
-    connections.push({ ifname: ifname, address: iface.address });
-    ++alias;
-  });
-});
+const connections = getConnections();
 
 if (!commander.nocopy) {
   inquirer
