@@ -1,8 +1,8 @@
 #! /usr/bin/env node
-const copyPaste = require("copy-paste");
 const commander = require("commander");
 const packageInfo = require("../package.json");
 const getPWD = require("../functions/pwd");
+const copy = require("../functions/copyToClipboard");
 
 commander
   .version(packageInfo.version)
@@ -13,7 +13,9 @@ const pwd = getPWD();
 console.log(`Current directory: ${pwd}`);
 
 if (!commander.nocopy) {
-  copyPaste.copy(pwd, () => {
-    console.log("Copied PWD to clipboard");
-  });
+  copy(pwd)
+    .then(() => {
+      console.log("Copied PWD to clipboard");
+    })
+    .catch(err => console.error(err));
 }

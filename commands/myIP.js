@@ -1,10 +1,10 @@
 #! /usr/bin/env node
-const copyPaste = require("copy-paste");
 const commander = require("commander");
 const inquirer = require("inquirer");
 const _ = require("lodash");
 const packageInfo = require("../package.json");
 const getConnections = require("../functions/getIPs");
+const copy = require("../functions/copyToClipboard");
 
 commander
   .version(packageInfo.version)
@@ -29,8 +29,10 @@ if (!commander.nocopy) {
     ])
     .then(answer => {
       const chosenIP = answer.IP.split(" - ")[1];
-      copyPaste.copy(chosenIP, () => {
-        console.log("Copied IP address!!");
-      });
+      copy(chosenIP)
+        .then(() => {
+          console.log("Copied IP address!!");
+        })
+        .catch(err => console.error(err));
     });
 }
