@@ -25,6 +25,8 @@ function copy(data) {
       case MACOS:
         copyToMacos(data, resolve, reject);
         break;
+      default:
+        console.log("Copy isn't yet supported on your OS");
     }
   });
 }
