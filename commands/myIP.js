@@ -1,7 +1,6 @@
 #! /usr/bin/env node
 const commander = require("commander");
 const inquirer = require("inquirer");
-const _ = require("lodash");
 const packageInfo = require("../package.json");
 const getConnections = require("../functions/getIPs");
 const copy = require("../functions/copyToClipboard");
@@ -22,7 +21,7 @@ if (!commander.nocopy) {
         message: "Which ip do you want to copy to your clipboard?",
         choices: [
           ...connections.map(connection =>
-            _.join([connection.ifname, connection.address], " - ")
+            [connection.ifname, connection.address].join(" - ")
           )
         ]
       }
