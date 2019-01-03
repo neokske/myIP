@@ -27,3 +27,14 @@ Just run `getPWD` and your PWD will be coppied to your clipboard.
 
 This tool can also be used to just view your PWD.
 `getPWD -n` or `getPWD --nocopy`
+
+### compFiles
+
+When you want to compare the content of two files you can use this command. The program will encode the 2 files to base64 and compare if the string are equal.
+
+If the files are equal a message `File contents are equal` will be shown. Otherwise the message `Files contents are not equal` will be shown.
+
+#### Usage
+```
+compFiles ./package.json ./another-package.json
+```
