@@ -1,6 +1,6 @@
 {
   "name": "myIP",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "main": "index.js",
   "license": "MIT",
   "bin": {
@@ -9,7 +9,7 @@
     "compFiles": "./commands/compFiles.js"
   },
   "dependencies": {
-    "commander": "2.19.0",
-    "inquirer": "6.2.1"
+    "commander": "4.0.1",
+    "inquirer": "7.0.1"
   }
 }
