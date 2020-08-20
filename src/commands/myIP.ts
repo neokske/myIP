@@ -1,9 +1,8 @@
-#! /usr/bin/env node
-const commander = require("commander");
-const inquirer = require("inquirer");
-const packageInfo = require("../package.json");
-const getConnections = require("../functions/getIPs");
-const copy = require("../functions/copyToClipboard");
+import commander from "commander";
+import inquirer from "inquirer";
+import { getConnections } from "../functions/getIPs";
+import { copy } from "../functions/copyToClipboard";
+import * as packageInfo from "../../package.json"
 
 commander
   .version(packageInfo.version)
@@ -20,18 +19,18 @@ if (!commander.nocopy) {
         name: "IP",
         message: "Which ip do you want to copy to your clipboard?",
         choices: [
-          ...connections.map(connection =>
+          ...connections.map((connection) =>
             [connection.ifname, connection.address].join(" - ")
-          )
-        ]
-      }
+          ),
+        ],
+      },
     ])
-    .then(answer => {
+    .then((answer) => {
       const chosenIP = answer.IP.split(" - ")[1];
       copy(chosenIP)
         .then(() => {
           console.log("Copied IP address!!");
         })
-        .catch(err => console.error(err));
+        .catch((err) => console.error(err));
     });
 }

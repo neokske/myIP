@@ -1,15 +1,27 @@
 {
-  "name": "myIP",
+  "name": "myip",
   "version": "1.7.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "build": "webpack && node tools/addEnv.js"
+  },
   "bin": {
-    "myIP": "./commands/myIP.js",
-    "getPWD": "./commands/getPWD.js",
-    "compFiles": "./commands/compFiles.js"
+    "myIP": "./dist/myip.js",
+    "getPWD": "./dist/getpwd.js",
+    "compFiles": "./dist/compfiles.js"
   },
   "dependencies": {
     "commander": "4.0.1",
     "inquirer": "7.0.1"
+  },
+  "devDependencies": {
+    "@types/commander": "^2.12.2",
+    "@types/inquirer": "^7.3.0",
+    "@types/node": "^14.6.0",
+    "ts-loader": "^8.0.2",
+    "typescript": "^3.9.7",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
   }
 }

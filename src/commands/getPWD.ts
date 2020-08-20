@@ -1,8 +1,7 @@
-#! /usr/bin/env node
-const commander = require("commander");
-const packageInfo = require("../package.json");
-const getPWD = require("../functions/pwd");
-const copy = require("../functions/copyToClipboard");
+import commander from "commander";
+import { getPWD } from "../functions/pwd";
+import { copy } from "../functions/copyToClipboard";
+import * as packageInfo from "../../package.json"
 
 commander
   .version(packageInfo.version)
@@ -17,5 +16,5 @@ if (!commander.nocopy) {
     .then(() => {
       console.log("Copied PWD to clipboard");
     })
-    .catch(err => console.error(err));
+    .catch((err) => console.error(err));
 }

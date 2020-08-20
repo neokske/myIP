@@ -1,14 +1,17 @@
-const os = require("os");
+import * as os from "os";
+
 const ifaces = os.networkInterfaces();
 
-function getConnections() {
-  const connections = [];
+type Connection = { ifname: string; address: string };
 
-  Object.keys(ifaces).forEach(function(ifname) {
+export const getConnections = () => {
+  const connections: Connection[] = [];
+
+  Object.keys(ifaces).forEach((ifname) => {
     let alias = 0;
 
-    ifaces[ifname].forEach(function(iface) {
-      if ("IPv4" !== iface.family || iface.internal !== false) {
+    ifaces[ifname]?.forEach((iface) => {
+      if ("IPv4" !== iface.family || iface.internal) {
         return;
       }
 
@@ -23,6 +26,4 @@ function getConnections() {
     });
   });
   return connections;
-}
-
-module.exports = getConnections;
+};
